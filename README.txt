@@ -40,12 +40,13 @@ During implementation, first I made sure I was able to extract the sequences fro
 
 4. Complexity (asymptotically)
 
-	Space
-	- As the segments increase, the space usage increases in constant time (more links to the list) so probably around O(n)
-	Time
-	- Let's say worst case scenario we need to add every single sequence to our chromosome. Let's say we have 4 sequences and the number of comparisons go down by one like below:
-		x x x x
-		  x x x
-		    x x
-		      x
-	- Therefore our code goes through roughly N^2/2 (or taking into account string length m then O(N^2/2*M)) so it does O(N^2) work overall 
+Space
+- As the segments increase, the space usage increases in constant time (more links to the list) so probably around O(n)
+
+Time
+- Let's say worst case scenario we need to add every single sequence to our chromosome. Let's say we have 4 sequences and the number of comparisons go down by one like below:
+	x x x x
+	  x x x
+	    x x
+	      x
+- Therefore our code goes through roughly N^2/2 (or taking into account string length m then O(N^2/2*M)) so it does O(N^2) work overall 
