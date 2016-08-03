@@ -15,9 +15,13 @@ Compilation (made with python 3.4.0)
 General Approach:
 
 1. Go over challenge and details above
+
 2. Basic Conclusions and Solution
-	The main part that will affect complexity will probably be determining if a sequence is in another sequence. Since I know that I am guaranteed that ALL unique sequences overlap into one sequence there is a 98% chance a beginning or end chunk of X of a sequence will match with the a chunk X of another sequence. It's just 50 chunks < 1000 characters so I can just check one by one, but down the line if hypothetically I were to incorporate more segments maybe I can optimize the search somehow. Knuth-Morris-Pratt (KMP) algorithm immediately comes to mind, I'm familiar with it from class and know it's a good option when needing to find multiple matches of DNA subsequences. After some googling Boyer Moore seems to stand out as a better inspiration for this situation. It's ideal when text to search is large and there are multiple strings to be searched and searching from the end fits with what we need here (http://www.ijaiem.org/volume1Issue3/IJAIEM-2012-11-02-001.pdf).
+
+The main part that will affect complexity will probably be determining if a sequence is in another sequence. Since I know that I am guaranteed that ALL unique sequences overlap into one sequence there is a 98% chance a beginning or end chunk of X of a sequence will match with the a chunk X of another sequence. It's just 50 chunks < 1000 characters so I can just check one by one, but down the line if hypothetically I were to incorporate more segments maybe I can optimize the search somehow. Knuth-Morris-Pratt (KMP) algorithm immediately comes to mind, I'm familiar with it from class and know it's a good option when needing to find multiple matches of DNA subsequences. After some googling Boyer Moore seems to stand out as a better inspiration for this situation. It's ideal when text to search is large and there are multiple strings to be searched and searching from the end fits with what we need here (http://www.ijaiem.org/volume1Issue3/IJAIEM-2012-11-02-001.pdf).
+
 3. Implementation and Tesing.
+
 My overall approach will be to start off with a random sequence A and find other sequences containing A[0-X]. 
 
 while there's more than one sequence 
@@ -35,6 +39,7 @@ One unknown is how large the length X of which I should test. If the sequences X
 During implementation, first I made sure I was able to extract the sequences from a file, input them into a list, and then output them into a result file. Now that I have my sequences I'm able to work with, I was able to develop a simple algorithm to detect segments in sequences. This turned out to be a simpler implementation of Boyer Moore, skipping over entire swatches if a letter was not contained within the smaller sequence. Now that I had that, I played around with X, and realized that searching for a segment of 10 consistently produced 3 sequences that contained it. I then altered my algorithm to build and search off of the beginning 10 characters of a main segment. I built off of it until the first 10 segments haven't changed, which tells me that I've reached the "head" of the dna sequence. I then altered my algorithm to build and search off of the ending 10 characters of that same main segment. I built off of it until the last 10 segments haven't changed, which tells me that I've reached the "tail" of the dna sequence. By not going forward with leftover segments, I am assuming that there are no redundant fragments, as in no fragment completely envelopes another. If this were not the case (multiple fragments have the same start or end point) I then would know that there are some entire sequences contained within other sequences and would need to eliminate them accordingly. Going forward off of that, let's assume that there did indeed exist a segment that would extend the head or tail. If that was the case it would contradict the fact that the current head segment changes and searches after each new extension.
 
 4. Complexity (asymptotically)
+
 	Space
 	- As the segments increase, the space usage increases in constant time (more links to the list) so probably around O(n)
 	Time
