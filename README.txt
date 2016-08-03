@@ -7,7 +7,7 @@ DNA Multiple Sequence Alignment(MSA) Challenge
 
 Compilation (made with python 3.4.0)
 
-1. put combineSequences.py file and example.txt in same folder and open command line
+1. put combineSequences.py file and example.txt in same folder and open command line from there
 2. python combineSequences.py
 3. input filename (without extension) and hit enter
 4. You will get an output.txt file with compiled DNA sequence as well as a leftover.txt file containing segments I didn't use
