@@ -16,17 +16,21 @@ Basic Conclusions and Solution
 
 The main part that will affect complexity will probably be determining if a sequence is in another sequence. Since I know that I am guaranteed that ALL unique sequences overlap into one sequence there is a 98% chance a beginning or end chunk of X of a sequence will match with the a chunk X of another sequence. It's just 50 chunks < 1000 characters so I can just check one by one, but down the line if hypothetically I were to incorporate more segments maybe I can optimize the search somehow. Knuth-Morris-Pratt (KMP) algorithm immediately comes to mind, I'm familiar with it from class and know it's a good option when needing to find multiple matches of DNA subsequences. After some googling Boyer Moore seems to stand out as a better inspiration for this situation. It's ideal when text to search is large and there are multiple strings to be searched and searching from the end fits with what we need here (http://www.ijaiem.org/volume1Issue3/IJAIEM-2012-11-02-001.pdf).
 
-My overall approach is to start off with a random sequence A and find other sequences containing A[0-X]. 
+My overall approach (assuming no redundant dna segments) is to start off with a random sequence A and find other sequences containing A[0-X] that also overlap with sequence A. As I overlap, A[0-X] will keep changing. Once A[0-X] stops changing, I switch over to the other side of A and do the same thing.
 
-while there's more than one sequence 
-	If a sequence B contains substring A[0-X] from B[x-z]
-		Check for a match starting from A[X+1] and B[z + 1]
-			if A ended, delete A and keep sequence B
-			if B ended, combine sequence A + B
-		else check the next sequence
-	made it here with no match? switch to other end of the sequence
+Pseudocode of algorithm:
 
-At this point (built off of two ends as far as I can go) I know I have the entire piece, so no need to test the other segments
+    Start off with a random sequence A and find other sequences containing A[0-X]. 
+
+    Go through the list of sequences one by one 
+	    If a sequence B contains substring A[0-X]
+		    Check for an overlap on the left end of sequence B
+                if there's an overlap combine the sequences
+			    Re-assign new A[0-X]
+	    made it here and A[0-X] hasn't changed? switch to other end of the sequence (looking at A[length-X, length])
+
+
+At this point (built off of two ends as far as I can go) I know I have the entire piece, so leftover segments would just be enveloped completely
 
 One unknown is how large the length X of which I should test. If the sequences X is too short, the chance of me encountering a "failed" sequence (one that can not be combined with sequence A) goes up. If the sequence X is too long, the chance of me accidentally testing a "dummy" sequence (one that dne in any sequence entirely) goes up. I need a sequence X that minimizes both of those chances, probably know after I implement my search algorithm.
 
