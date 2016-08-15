@@ -102,7 +102,7 @@ def buildAlgorithm(checkSequence, sequences, flag):
 		i = X-1 # reset position of i
 		idx+=1 # evaluate next sequence 
 	return checkSequence, sequences
-	
+
 """
 Checks whether a given sequence exists in a longer sequence 
 Input: 
@@ -127,8 +127,6 @@ def compareTwoSequences(checkSequence, reverseKey, i):
 		else:
 			idx+=1
 			i-=1
-
-	# if we made it here, they match
 	return True
 
 """
@@ -200,28 +198,21 @@ def readFile(filename):
 		in_file = open(filename + ".txt", "r")
 		print ("File opened successfully\n")
 		
-		line = in_file.readline() #read in first line of file
-		sequenceBlock = "" # container for sequence
-		sequences = [] # list for sequence blocks, 50 of them this time around
+		line = in_file.readline() 
+		sequenceBlock = "" 
+		sequences = [] 
 
 		while line:
-			# if we hit >Rosalind_#### line
 			if line[0] == ">":
-				# make sure there's something to store
 				if sequenceBlock:
-					# print("sequence block: " + sequenceBlock + "\n")
 					sequences.append(sequenceBlock) 
-					sequenceBlock = "" # reset block
-			# else just add it to the sequence block
+					sequenceBlock = "" k
 			else:
 				sequenceBlock = sequenceBlock + line
-			# get the next line
 			line = in_file.readline().rstrip() # get rid of any trailing whitespaces
 		
-		# add in the last sequence
 		sequences.append(sequenceBlock)
 
-		# when we're done, return this list
 		return sequences
 		in_file.close()
 	except IOError:
