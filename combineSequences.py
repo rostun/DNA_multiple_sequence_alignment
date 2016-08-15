@@ -96,30 +96,13 @@ def buildAlgorithm(checkSequence, sequences, flag):
 							reverseKey = keySequence[::-1]					
 			else:
 				# if not, check if cs is in subsequence at all 
-				if not checkCs(reverseKey, cs):
+				if cs not in reverseKey:
 					i+=10 # skip over 10 spaces
 			i+=1
 		i = X-1 # reset position of i
 		idx+=1 # evaluate next sequence 
 	return checkSequence, sequences
-
-"""
-Checks whether a character exists within a given sequence
-Input: 
-	keySequence: given sequence
-	cs: character to search for 
-Output: 
-	True (character exists within sequence), False (character DNE within sequence)
-"""
-def checkCs(keySequence, cs):
-	idx = 0
-	while idx < len(keySequence):
-		if cs == keySequence[idx]:
-			return True
-		idx+=1
-	#if we got here, cs isn't in keySequence
-	return False
-
+	
 """
 Checks whether a given sequence exists in a longer sequence 
 Input: 
